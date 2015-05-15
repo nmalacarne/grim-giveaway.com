@@ -17,4 +17,4 @@ Install Bower components via ```$ bower install```
 Start the application via ```$ node app.js```
 
 TODO: add Gulp tasks
-
+TODO: add config
