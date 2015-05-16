@@ -1,8 +1,12 @@
 var app = require('express')();
+var log = require('morgan')('dev');
 
 // view setup
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+// logging
+app.use(log);
 
 // routes setup
 require(__dirname + '/routes')(app);
