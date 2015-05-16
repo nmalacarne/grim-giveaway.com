@@ -1,13 +1,17 @@
 {
-  "name": "craterdust",
+  "name": "express-skeleton",
   "version": "0.0.1",
-  "description": "A website for CraterDust, LLC",
-  "main": "craterdust.js",
+  "description": "A skeleton for ExpressJS",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "nick@craterdust.com",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CraterDust/express-skeleton"
+  },
   "dependencies": {
     "express": "^4.12.3",
     "jade": "^1.9.2"
