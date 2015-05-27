@@ -8,17 +8,21 @@ head
   
   //- vendor stylesheets
   link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet")
-  block styles
+  block vendor-styles
 
   //- local stylesheets
   != css('app')
+  block local-styles
+
 body
+  //- TODO: navigation
   block content
 
   //- vendor scripts
   script(src="https://code.jquery.com/jquery-2.1.4.min.js")
   script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
-  block scripts
+  block vendor-scripts
 
   //- local scripts
   != js('app')
+  block local-scripts

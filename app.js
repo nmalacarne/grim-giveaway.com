@@ -1,19 +1,20 @@
 var app = require('express')();
-var log = require('morgan')('dev');
 
 // view setup
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
-// logging
-app.use(log);
+// environment
+app.set('port',     process.env.PORT      || 3000);
+app.set('logType',  process.env.LOG_TYPE  || 'dev');
 
 // app config
-app.use(require('connect-assets')());
+require(__dirname + '/config')(app);
 
 // routes setup
 require(__dirname + '/routes')(app);
 
-app.listen(3000, function server() {
-  console.log('Server listening on port: ', 3000);
+// spin up the server
+app.listen(app.get('port'), function server() {
+  console.log('Server listening on port: ', app.get('port'));
 });
