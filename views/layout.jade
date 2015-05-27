@@ -7,7 +7,7 @@ head
   block meta
   
   //- vendor stylesheets
-  link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet")
+  != css('vendor/bootstrap.min')
   block vendor-styles
 
   //- local stylesheets
@@ -19,8 +19,8 @@ body
   block content
 
   //- vendor scripts
-  script(src="https://code.jquery.com/jquery-2.1.4.min.js")
-  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+  != js('vendor/jquery.min')
+  != js('vendor/bootstrap.min')
   block vendor-scripts
 
   //- local scripts
