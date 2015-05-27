@@ -8,8 +8,8 @@ app.set('view engine', 'jade');
 app.set('port',     process.env.PORT      || 3000);
 app.set('logType',  process.env.LOG_TYPE  || 'dev');
 
-// app config
-require(__dirname + '/config')(app);
+// middleware setup
+require(__dirname + '/middleware')(app);
 
 // routes setup
 require(__dirname + '/routes')(app);
