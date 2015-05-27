@@ -5,11 +5,11 @@ var log = require('morgan')('dev');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
-// app config
-app.use(require('connect-assets')());
-
 // logging
 app.use(log);
+
+// app config
+app.use(require('connect-assets')());
 
 // routes setup
 require(__dirname + '/routes')(app);
