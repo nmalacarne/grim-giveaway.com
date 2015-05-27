@@ -9,6 +9,9 @@ head
   //- vendor stylesheets
   link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet")
   block styles
+
+  //- local stylesheets
+  != css('app')
 body
   block content
 
@@ -16,3 +19,6 @@ body
   script(src="https://code.jquery.com/jquery-2.1.4.min.js")
   script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
   block scripts
+
+  //- local scripts
+  != js('app')

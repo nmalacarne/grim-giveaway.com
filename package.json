@@ -13,6 +13,7 @@
     "url": "https://github.com/CraterDust/express-skeleton"
   },
   "dependencies": {
+    "connect-assets": "^4.7.1",
     "express": "^4.12.3",
     "jade": "^1.9.2",
     "morgan": "^1.5.3"
