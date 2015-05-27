@@ -1,6 +1,18 @@
 doctype html
 head
-  title CraterDust
+  title Express
+
+  //- meta tags/seo
+  meta(name="viewport", content="width=device-width, initial-scale=1")
+  block meta
+  
+  //- vendor stylesheets
+  link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet")
+  block styles
 body
-  h1 Layout
   block content
+
+  //- vendor scripts
+  script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+  block scripts
