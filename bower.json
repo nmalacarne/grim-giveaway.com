@@ -1,0 +1,22 @@
+{
+  "name": "express-skeleton",
+  "version": "0.0.0",
+  "homepage": "https://github.com/CraterDust/express-skeleton",
+  "authors": [
+    "Nicholas Malacarne <nick@craterdust.com>"
+  ],
+  "description": "A skeleton application for ExpressJS",
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.4"
+  }
+}

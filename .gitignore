@@ -5,7 +5,15 @@ bower_components
 # log files
 *.log
 
+# compiled assets
 public
+
+# assets
+assets
+!assets/css/app.css
+!assets/css/vendor/vendor.css
+!assets/js/app.js
+!assets/js/vendor/vendor.js
 
 # IDE
 .idea
