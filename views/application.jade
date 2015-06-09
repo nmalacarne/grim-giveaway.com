@@ -7,22 +7,16 @@ head
   block meta
   
   //- vendor stylesheets
-  != css('vendor/bootstrap.min')
-  block vendor-styles
+  != css('vendor/vendor')
 
   //- local stylesheets
   != css('app')
-  block local-styles
 
 body
-  //- TODO: navigation
   block content
 
   //- vendor scripts
-  != js('vendor/jquery.min')
-  != js('vendor/bootstrap.min')
-  block vendor-scripts
+  != js('vendor/vendor')
 
   //- local scripts
   != js('app')
-  block local-scripts
