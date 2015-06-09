@@ -14,7 +14,9 @@ Install Bower via ```$ npm install -g bower```
 
 Install Bower components via ```$ bower install```
 
+Install Gulp via ```$npm install -g gulp```
+
+Build vendor assets via ```$ gulp build```
+
 Start the application via ```$ node app.js```
 
-TODO: add Gulp tasks
-TODO: add config
