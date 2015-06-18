@@ -1,9 +1,9 @@
 {
   "name": "express-skeleton",
   "version": "0.0.0",
-  "homepage": "https://github.com/CraterDust/express-skeleton",
+  "homepage": "https://github.com/nmalacarne/express-skeleton",
   "authors": [
-    "Nicholas Malacarne <nick@craterdust.com>"
+    "Nicholas Malacarne <nicholas.malacarne@gmail.com>"
   ],
   "description": "A skeleton application for ExpressJS",
   "main": "app.js",
