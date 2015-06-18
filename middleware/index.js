@@ -5,7 +5,7 @@ var log       = require('morgan');
 
 module.exports = function middleware(app) {
   // logging
-  app.use(log(app.get('logType')));
+  app.use(log(process.env.LOG_TYPE));
 
   // gzip
   app.use(compress());

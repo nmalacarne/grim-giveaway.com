@@ -17,3 +17,6 @@ assets
 
 # IDE
 .idea
+
+#environment
+.env

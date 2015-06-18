@@ -1,4 +1,4 @@
-var pages = require(__dirname + '/pages');
+var pages = require('./pages');
 
 module.exports = function routes(app) {
   app.use('/', pages);
