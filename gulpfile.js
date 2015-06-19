@@ -8,7 +8,8 @@ var cssDir    = path.join(__dirname, 'assets/css/vendor');
 gulp.task('js', function() {
   var targets = [
     path.join(bowerDir, 'jquery/dist/jquery.js'),
-    path.join(bowerDir, 'bootstrap/dist/js/bootstrap.js')
+    path.join(bowerDir, 'bootstrap/dist/js/bootstrap.js'),
+    path.join(bowerDir, 'jquery.countdown/dist/jquery.countdown.js')
   ];
 
   return gulp.src(targets).pipe(gulp.dest(jsDir));
