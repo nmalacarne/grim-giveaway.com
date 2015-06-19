@@ -1,4 +1,13 @@
 extends ../application
 
 block content
-  h2.text-center Coming Soon.
+  .col-xs-8.col-xs-offset-2.col-sm-5.col-sm-offset-3
+    form
+      .form-group
+        p.help-block.text-center Enter your Steam account for a chance to win a copy of Grim Dawn. 
+        input(type='text', placeholder='Steam Account').form-control
+      button(type='submit').btn.btn-default.center-block Submit
+      .text-center
+        a(href='//github.com/nmalacarne/grim-giveaway.com', target='_blank') source
+        | &nbsp;|&nbsp;
+        a(href='mailto:nick@grim-giveaway.com') contact 
