@@ -9,8 +9,8 @@ app.set('view engine', 'jade');
 // load environment
 require('dotenv').load();
 
-// middleware setup
-require('./middleware')(app);
+// app setup
+require('./setup')(app);
 
 // routes setup
 require('./routes')(app);
