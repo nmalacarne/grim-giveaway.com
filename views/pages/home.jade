@@ -4,15 +4,16 @@ block content
   .col-xs-10.col-xs-offset-1.col-sm-5.col-sm-offset-3
     p.text-center Next drawing in
     #countdown.text-center
-    form(action='/', method='post')
-      if error
-        .alert.alert-danger
-          span= error
-      .form-group
-        p.help-block.text-center Enter your Steam account for a chance to win a copy of Grim Dawn. 
-        input(type='text', placeholder='Steam Account Name', name='accountName', required).form-control
-      button(type='submit').btn.btn-default.center-block Submit
-      .text-center
-        a(href='//github.com/nmalacarne/grim-giveaway.com', target='_blank') source
-        | &nbsp;|&nbsp;
-        a(href='mailto:nick@grim-giveaway.com') contact 
+    if error
+      .alert.alert-danger
+        span= error
+    a(href='/')
+      img(
+        src='http://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_small.png'
+      ).center-block
+    .text-center
+      a(href='//github.com/nmalacarne/grim-giveaway.com', target='_blank') source
+      | &nbsp;|&nbsp;
+      a(href='mailto:nick@grim-giveaway.com') contact
+    .text-center
+      a(href='http://steampowered.com', target='_blank')#powered-by Powered by Steam

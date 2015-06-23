@@ -11,6 +11,7 @@ public
 # assets
 assets
 !assets/favicon.ico
+!assets/img/*
 !assets/css/app.css
 !assets/css/vendor/vendor.css
 !assets/js/app.js
