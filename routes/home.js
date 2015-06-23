@@ -1,3 +1,5 @@
+var Entrant = require('../models/entrant');
+
 exports.get = function(req, res) {
   res.render('pages/home');
 }
@@ -5,7 +7,13 @@ exports.get = function(req, res) {
 exports.post = function(req, res) {
   var accountName = req.body.accountName;
 
-  res.send(accountName);
+  var entrant = new Entrant({account_name: accountName});
+
+  entrant.save(function(err, entrant) {
+    if (err) res.render('pages/home', {error: 'An error has occurred.'});
+
+    res.send(entrant);
+  });
 }
 
 exports.checkParams = function(req, res, next) {
@@ -19,6 +27,11 @@ exports.checkParams = function(req, res, next) {
 }
 
 exports.checkUnique = function(req, res, next) {
-  // TODO: check if account name is unique in db
-  next();
+  Entrant.count({account_name: req.body.accountName}, function(err, count) {
+    if (count > 0) {
+      res.render('pages/home', {error: req.body.accountName + ' has already been entered in this contest.'});
+    } else {
+      next();
+    }
+  });
 }

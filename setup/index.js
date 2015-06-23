@@ -3,6 +3,7 @@ var path      = require('path');
 var compress  = require('compression');
 var log       = require('morgan');
 var parser    = require('body-parser');
+var db        = require('mongoose');
 
 module.exports = function setup(app) {
   // logging
@@ -19,4 +20,7 @@ module.exports = function setup(app) {
   // json parsing
   app.use(parser.json());
   app.use(parser.urlencoded({extended: true}));
+
+  // mongo setup
+  db.connect(process.env.DB_URL);
 };
