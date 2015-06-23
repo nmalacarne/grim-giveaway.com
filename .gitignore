@@ -10,13 +10,11 @@ public
 
 # assets
 assets
+!assets/*.ico
 !assets/css/app.css
 !assets/css/vendor/vendor.css
 !assets/js/app.js
 !assets/js/vendor/vendor.js
-
-# IDE
-.idea
 
 #environment
 .env
