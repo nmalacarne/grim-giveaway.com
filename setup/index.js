@@ -1,5 +1,6 @@
 var assets    = require('connect-assets');
 var path      = require('path');
+var favicon   = require('serve-favicon');
 var compress  = require('compression');
 var log       = require('morgan');
 var parser    = require('body-parser');
@@ -9,6 +10,9 @@ var db        = require('mongoose');
 module.exports = function setup(app) {
   // logging
   app.use(log(process.env.LOG_TYPE));
+
+  // serve favicon
+  app.use(favicon(__dirname + '/../assets/favicon.ico'));
 
   // gzip
   app.use(compress());
