@@ -29,7 +29,7 @@ exports.checkParams = function(req, res, next) {
 exports.checkUnique = function(req, res, next) {
   Entrant.count({account_name: req.body.accountName}, function(err, count) {
     if (count > 0) {
-      res.render('pages/home', {error: req.body.accountName + ' has already been entered in this contest.'});
+      res.render('pages/home', {error: req.body.accountName + ' has already been entered into this contest.'});
     } else {
       next();
     }
