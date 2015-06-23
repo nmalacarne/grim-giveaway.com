@@ -22,6 +22,7 @@ module.exports = function setup(app) {
   app.use(parser.json());
   app.use(parser.urlencoded({extended: true}));
 
+  // sanitize request data
   app.use(function(req, res, next) {
     req.body    = sanitize(req.body);
     req.query   = sanitize(req.query);
