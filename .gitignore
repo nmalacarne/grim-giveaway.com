@@ -10,7 +10,7 @@ public
 
 # assets
 assets
-!assets/*.ico
+!assets/favicon.ico
 !assets/css/app.css
 !assets/css/vendor/vendor.css
 !assets/js/app.js
