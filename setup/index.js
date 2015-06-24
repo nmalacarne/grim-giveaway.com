@@ -1,5 +1,4 @@
 var assets    = require('connect-assets');
-var path      = require('path');
 var favicon   = require('serve-favicon');
 var compress  = require('compression');
 var log       = require('morgan');
