@@ -27,7 +27,14 @@ module.exports = function routes(app) {
             case 1:
               new Entrant({steam_id: profile.steamid}).save(function(err, entrant) {
                 if (err) return res.render('pages/home', {error: req.body.profileName + ' has already been entered into the contest.'});
-                return res.send(entrant);
+
+                steam.getPlayerSummaries({steamids: profile.steamid}, function(err, summary) {
+                  if (err) return res.render('pages/home', {error: 'An error has occurred; Please try again.'});
+                  console.log(summary.players);
+                  return res.render('pages/congrats', {
+                    user: summary.players.shift()
+                  });
+                });
               });
               break;
             default:
