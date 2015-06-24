@@ -24,6 +24,7 @@
     "mongoose": "^4.0.6",
     "morgan": "^1.5.3",
     "serve-favicon": "^2.3.0",
+    "steam-webapi": "^0.6.5",
     "stylus": "^0.51.1"
   },
   "devDependencies": {
