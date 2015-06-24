@@ -5,6 +5,7 @@ var log       = require('morgan');
 var parser    = require('body-parser');
 var sanitize  = require('mongo-sanitize');
 var db        = require('mongoose');
+var steam     = require('steam-webapi');
 
 module.exports = function setup(app) {
   // logging
@@ -36,4 +37,7 @@ module.exports = function setup(app) {
 
   // mongo setup
   db.connect(process.env.DB_URL);
+
+  // Steam
+  steam.key = process.env.STEAM_KEY;
 };

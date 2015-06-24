@@ -13,8 +13,6 @@ module.exports = function routes(app) {
       }
     },
     function indexPost(req, res) {
-      Steam.key = process.env.STEAM_KEY;
-
       Steam.ready(function(err) {
         if (err) return res.render('pages/home', {error: 'An error has occurred; Please try again.'});
 
