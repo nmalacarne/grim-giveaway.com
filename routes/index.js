@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 var Steam   = require('steam-webapi');
 var Entrant = require('../models/entrant');
 
@@ -13,55 +14,67 @@ module.exports = function routes(app) {
       }
     },
     function indexPost(req, res) {
-      Steam.ready(function(err) {
-        if (err) return res.render('pages/home', {error: 'An error has occurred; Please contact an administrator.'});
+      var RESPONSES = {FOUND: 1, NOT_FOUND: 42};
+      var GAME_ID   = 219990;
 
+      Steam.ready(function(err) {
+        Promise.promisifyAll(Steam.prototype);
+
+        var user  = {};
         var steam = new Steam();
 
-        // lookup entrant's steam id
-        steam.resolveVanityURL({
+        steam.resolveVanityURLAsync({
           vanityurl: req.body.profileName
-        }, function(err, profile) {
-          if (err) return res.render('pages/home', {error: 'An error occurred; Please contact an administrator.'});
-          // 1: success
-          // 46: user not found
+        })
+        .then(function getSummary(profile) {
           switch(profile.success) {
-            case 1:
-              steam.getOwnedGames({
-                steamid                   : profile.steamid
-              , include_appinfo           : false
-              , include_played_free_games : false
-              , appids_filter             : null
-              }, function(err, library) {
-                // check if grim dawn is on list of owned games
-                for (var i = 0; i < library.games.length; i++) {
-                  if (library.games[i].appid === 219990) return res.render('pages/home', {error: req.body.profileName + ' already owns a copy of Grim Dawn.'});
-                }
-                // create new entrant
-                new Entrant({
-                  steam_id: profile.steamid
-                }).save(function(err, entrant) {
-                  if (err) return res.render('pages/home', {error: req.body.profileName + ' has already been entered into the contest.'});
-                  // query steam api for user profile data (name, icon, etc)
-                  steam.getPlayerSummaries({
-                    steamids: profile.steamid
-                  }, function(err, summary) {
-                    if (err) return res.render('pages/home', {error: 'An error has occurred; Please contact an administrator.'});
-                    return res.render('pages/congrats', {
-                      user: summary.players.shift()
-                    });
-                  });
-                });
+            case RESPONSES.FOUND:
+              return steam.getPlayerSummariesAsync({
+                steamids: profile.steamid
               });
               break;
+            case RESPONSES.NOT_FOUND:
+              throw new Error('Steam profile not found.');
+              break;
             default:
-              return res.render('pages/home', {error: 'Steam profile not found.'});
+              throw new Error('An error has occurred; please contact an administrator.');
               break;
           }
+        })
+        .then(function setUser(summary) {
+          user = summary.players.shift();
+        })
+        .then(function getLibrary() {
+          return steam.getOwnedGamesAsync({
+            steamid                   : user.steamid
+          , include_appinfo           : false
+          , include_played_free_games : false
+          , appids_filter             : null
+          });
+        })
+        .then(function checkOwnership(library) {
+          library.games.forEach(function(game) {
+            if (game.appid == GAME_ID) {
+              throw new Error(req.body.profileName + ' already owns Grim Dawn.');
+            }
+          });
+        })
+        .then(function createEntrant() {
+          return new Entrant({
+            steam_id      : user.steamid
+          }).save();
+        })
+        .then(function congratulateEntrant(entrant) {
+          console.log(user);
+          return res.render('pages/congrats', {
+            data: user
+          });
+        })
+        .catch(function(err) {
+          return res.render('pages/home', {error: err.message});
         });
       });
-    }
-  );
+    });
 
   // 404
   app.use(function PageNotFound(req, res) {
