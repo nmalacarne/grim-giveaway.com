@@ -15,7 +15,7 @@ module.exports = function routes(app) {
     },
     function indexPost(req, res) {
       var RESPONSES = {FOUND: 1, NOT_FOUND: 42};
-      var GAME_ID   = 219990;
+      var GD_ID   = 219990;
 
       Steam.ready(function(err) {
         Promise.promisifyAll(Steam.prototype);
@@ -54,15 +54,15 @@ module.exports = function routes(app) {
         })
         .then(function checkOwnership(library) {
           library.games.forEach(function(game) {
-            if (game.appid == GAME_ID) {
+            if (game.appid == GD_ID) {
               throw new Error(req.body.profileName + ' already owns Grim Dawn.');
             }
           });
         })
         .then(function countEntrantById() {
-         return Entrant.count({
-          steam_id: user.steamid
-         });
+          return Entrant.count({
+            steam_id: user.steamid
+          });
         })
         .then(function checkIfEntered(count) {
           if (count > 0) {
