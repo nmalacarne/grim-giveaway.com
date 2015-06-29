@@ -46,10 +46,10 @@ module.exports = function routes(app) {
         })
         .then(function getLibrary() {
           return steam.getOwnedGamesAsync({
-            steamid                   : user.steamid
-          , include_appinfo           : false
-          , include_played_free_games : false
-          , appids_filter             : null
+              steamid                   : user.steamid
+            , include_appinfo           : false
+            , include_played_free_games : false
+            , appids_filter             : null
           });
         })
         .then(function checkOwnership(library) {
@@ -59,15 +59,27 @@ module.exports = function routes(app) {
             }
           });
         })
+        .then(function countEntrantById() {
+         return Entrant.count({
+          steam_id: user.steamid
+         });
+        })
+        .then(function checkIfEntered(count) {
+          if (count > 0) {
+            throw new Error(req.body.profileName + ' has already entered the contest.');
+          }
+        })
         .then(function createEntrant() {
           return new Entrant({
-            steam_id      : user.steamid
+              steam_id      : user.steamid
+            , profile_name  : user.personaname
+            , profile_url   : user.profileurl
+            , icon_url      : user.avatarfull
           }).save();
         })
         .then(function congratulateEntrant(entrant) {
-          console.log(user);
           return res.render('pages/congrats', {
-            data: user
+            data: entrant
           });
         })
         .catch(function(err) {
