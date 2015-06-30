@@ -12,9 +12,9 @@ public
 assets
 !assets/favicon.ico
 !assets/img/*
-!assets/css/app.css
+!assets/css/grim-giveaway.css
 !assets/css/vendor/vendor.css
-!assets/js/app.js
+!assets/js/grim-giveaway.js
 !assets/js/vendor/vendor.js
 
 #environment
