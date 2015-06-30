@@ -3,7 +3,7 @@
     var date  = new Date();
     var eom   = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    eom = eom.toISOString().split('T')[0].replace(/-/g, '/');
+    eom = eom.toISOString().split('T')[0].replace(/-/g, '/') + ' 23:00:00';
 
     $('#countdown').countdown(eom, function(event) {
       $(this).text(event.strftime('%Dd:%Hh:%Mm:%Ss'));
