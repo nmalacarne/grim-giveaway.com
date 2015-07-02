@@ -30,6 +30,7 @@
     "stylus": "^0.51.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-shell": "^0.4.2"
   }
 }
