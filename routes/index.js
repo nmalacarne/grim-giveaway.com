@@ -53,11 +53,13 @@ module.exports = function routes(app) {
           });
         })
         .then(function checkOwnership(library) {
-          library.games.forEach(function(game) {
-            if (game.appid == GD_ID) {
-              throw new Error(req.body.profileName + ' already owns Grim Dawn.');
-            }
-          });
+          if (typeof library.games !== 'undefined') {
+            library.games.forEach(function(game) {
+              if (game.appid == GD_ID) {
+                throw new Error(req.body.profileName + ' already owns Grim Dawn.');
+              }
+            });
+          }
         })
         .then(function countEntrantById() {
           return Entrant.count({
@@ -83,6 +85,7 @@ module.exports = function routes(app) {
           });
         })
         .catch(function(err) {
+          console.log(err);
           return res.render('pages/home', {error: err.message});
         });
       });
