@@ -1,5 +1,6 @@
-var path = require('path');
-var gulp = require('gulp');
+var path  = require('path');
+var gulp  = require('gulp');
+var shell = require('gulp-shell');
 
 var bowerDir  = path.join(__dirname, 'bower_components');
 var jsDir     = path.join(__dirname, 'assets/js/vendor');
@@ -23,4 +24,9 @@ gulp.task('css', function() {
   return gulp.src(targets).pipe(gulp.dest(cssDir));
 });
 
-gulp.task('build', ['js', 'css']);
+gulp.task('install', shell.task([
+  'npm install',
+  'bower install'
+]));
+
+gulp.task('build', ['install', 'js', 'css']);
