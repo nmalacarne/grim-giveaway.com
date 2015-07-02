@@ -5,6 +5,7 @@ var log       = require('morgan');
 var parser    = require('body-parser');
 var sanitize  = require('mongo-sanitize');
 var session   = require('express-session');
+var flash     = require('flash');
 var db        = require('mongoose');
 var passport  = require('passport');
 var steam     = require('steam-webapi');
@@ -37,9 +38,13 @@ module.exports = function setup(app) {
     next();
   });
 
+  // session
   app.use(session({
     secret: process.env.SECRET
   }));
+
+  // flash messages
+  app.use(flash());
 
   // mongo setup
   db.connect(process.env.DB_URL);
