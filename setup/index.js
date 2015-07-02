@@ -4,7 +4,9 @@ var compress  = require('compression');
 var log       = require('morgan');
 var parser    = require('body-parser');
 var sanitize  = require('mongo-sanitize');
+var session   = require('express-session');
 var db        = require('mongoose');
+var passport  = require('passport');
 var steam     = require('steam-webapi');
 
 module.exports = function setup(app) {
@@ -35,8 +37,22 @@ module.exports = function setup(app) {
     next();
   });
 
+  app.use(session({
+    secret: process.env.SECRET
+  }));
+
   // mongo setup
   db.connect(process.env.DB_URL);
+
+  // passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+  });
 
   // Steam
   steam.key = process.env.STEAM_KEY;

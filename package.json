@@ -20,11 +20,13 @@
     "connect-assets": "^4.7.1",
     "dotenv": "^1.1.0",
     "express": "^4.12.3",
+    "express-session": "^1.11.3",
     "jade": "^1.9.2",
     "markdown": "^0.5.0",
     "mongo-sanitize": "^1.0.0",
     "mongoose": "^4.0.6",
     "morgan": "^1.5.3",
+    "passport-steam": "^0.1.5",
     "serve-favicon": "^2.3.0",
     "steam-webapi": "^0.6.5",
     "stylus": "^0.51.1"
