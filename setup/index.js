@@ -40,7 +40,9 @@ module.exports = function setup(app) {
 
   // session
   app.use(session({
-    secret: process.env.SECRET
+      secret: process.env.SECRET
+    , saveUninitialized: false
+    , resave: true
   }));
 
   // flash messages
