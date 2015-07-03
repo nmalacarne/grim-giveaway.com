@@ -10,6 +10,18 @@ var db        = require('mongoose');
 var passport  = require('passport');
 var steam     = require('steam-webapi');
 
+var MongoDBStore = require('connect-mongodb-session')(session);
+
+var store = new MongoDBStore({
+    uri: process.env.DB_URL
+  , collection: 'sessions'
+});
+
+store.on('error', function(error) {
+  assert.ifError(error);
+  assert.ok(false);
+});
+
 module.exports = function setup(app) {
   // logging
   app.use(log(process.env.LOG_TYPE));
@@ -38,18 +50,21 @@ module.exports = function setup(app) {
     next();
   });
 
+  // mongo setup
+  db.connect(process.env.DB_URL);
+
   // session
   app.use(session({
-      secret: process.env.SECRET
-    , saveUninitialized: false
-    , resave: true
+      secret            : process.env.SECRET
+    , store             : store
+    , saveUninitialized : false
+    , resave            : true
   }));
 
   // flash messages
   app.use(flash());
 
-  // mongo setup
-  db.connect(process.env.DB_URL);
+
 
   // passport
   app.use(passport.initialize());

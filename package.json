@@ -18,6 +18,7 @@
     "body-parser": "^1.13.1",
     "compression": "^1.4.4",
     "connect-assets": "^4.7.1",
+    "connect-mongodb-session": "^1.0.3",
     "dotenv": "^1.1.0",
     "express": "^4.12.3",
     "express-session": "^1.11.3",
