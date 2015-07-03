@@ -5,8 +5,8 @@ var Steam     = require('steam-webapi');
 var Entrant   = require('../models/entrant');
 
 Passport.use(new Strategy({
-      returnURL: 'http://localhost:3000/callback'
-    , realm: 'http://localhost:3000'
+      returnURL: process.env.BASE_URL + 'callback'
+    , realm: process.env.BASE_URL
     , apiKey: process.env.STEAM_KEY
   },
   function(identifier, profile, done) {
