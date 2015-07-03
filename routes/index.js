@@ -10,7 +10,7 @@ Passport.use(new Strategy({
     , apiKey: process.env.STEAM_KEY
   },
   function(identifier, profile, done) {
-    return done(null, profile);
+    return done(null, profile._json);
   }
 ));
 
@@ -35,15 +35,13 @@ module.exports = function routes(app) {
       , failureFlash: true
     }),
     function callbackGet(req, res) {
-      var user = req.session.passport.user._json;
-      console.log(JSON.stringify(user));
       Steam.ready(function(err) {
         Promise.promisifyAll(Steam.prototype);
 
         var steam = new Steam();
 
         steam.getOwnedGamesAsync({
-            steamid                   : user.steamid
+            steamid                   : req.user.steamid
           , include_appinfo           : false
           , include_played_free_games : false
           , appids_filter             : null
@@ -58,26 +56,24 @@ module.exports = function routes(app) {
         })
         .then(function countEntrantById() {
           return Entrant.count({
-            steam_id: user.steamid
+            steam_id: req.user.steamid
           });
         })
         .then(function checkIfEntered(count) {
           if (count > 0) {
-            throw new Error(user.personaname + ' has already entered the contest.');
+            throw new Error(req.user.personaname + ' has already entered the contest.');
           }
         })
         .then(function createEntrant() {
           return new Entrant({
-              steam_id      : user.steamid
-            , profile_name  : user.personaname
-            , profile_url   : user.profileurl
-            , icon_url      : user.avatarfull
+              steam_id      : req.user.steamid
+            , profile_name  : req.user.personaname
+            , profile_url   : req.user.profileurl
+            , icon_url      : req.user.avatarfull
           }).save();
         })
         .then(function congratulateEntrant(entrant) {
-          return res.render('pages/congrats', {
-            data: entrant
-          });
+          return res.redirect('/congrats/' + entrant.profile_name);
         })
         .catch(function(err) {
           console.log(err);
@@ -87,6 +83,23 @@ module.exports = function routes(app) {
       });
     }
   );
+
+  app.get('/congrats/:profile_name', function congratsGet(req, res) {
+    Entrant.findOne({
+      profile_name: req.params.profile_name
+    })
+    .exec()
+    .then(function(entrant) {
+      if (!entrant) {
+        req.flash(req.params.profile_name + ' has not entered the contest.');
+        return res.redirect('/');
+      }
+
+      return res.render('pages/congrats', {
+        data: entrant
+      });
+    });
+  });
 
   // 404
   app.use(function PageNotFound(req, res) {
