@@ -1,5 +1,6 @@
 var assets    = require('connect-assets');
 var favicon   = require('serve-favicon');
+var robots    = require('robots.txt');
 var compress  = require('compression');
 var log       = require('morgan');
 var parser    = require('body-parser');
@@ -28,6 +29,8 @@ module.exports = function setup(app) {
 
   // serve favicon
   app.use(favicon(__dirname + '/../assets/favicon.ico'));
+
+  app.use(robots(__dirname + '/../assets/robots.txt'));
 
   // gzip
   app.use(compress());

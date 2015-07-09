@@ -11,6 +11,7 @@ public
 # assets
 assets
 !assets/favicon.ico
+!assets/robots.txt
 !assets/img/*
 !assets/css/grim-giveaway.css
 !assets/css/vendor/vendor.css
