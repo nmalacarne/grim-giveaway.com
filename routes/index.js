@@ -104,7 +104,8 @@ module.exports = function routes(app) {
 
   // 404
   app.use(function PageNotFound(req, res) {
-    res.redirect('/');
+    res.status(404);
+    res.render('pages/404');
   });
 };
 
