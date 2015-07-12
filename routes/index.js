@@ -4,6 +4,9 @@ var Strategy  = require('passport-steam').Strategy;
 var Steam     = require('steam-webapi');
 var Entrant   = require('../models/entrant');
 
+var sanitize  = require('mongo-sanitize');
+
+// TODO: move this elsewhere
 Passport.use(new Strategy({
       returnURL: process.env.BASE_URL + 'callback'
     , realm: process.env.BASE_URL
@@ -15,6 +18,15 @@ Passport.use(new Strategy({
 ));
 
 module.exports = function routes(app) {
+  // sanitize request data
+  app.use(function(req, res, next) {
+    req.body    = sanitize(req.body);
+    req.query   = sanitize(req.query);
+    req.params  = sanitize(req.params);
+
+    next();
+  });
+
   app.get('/', function indexGet(req, res) {
     res.render('pages/home');
   });
@@ -95,6 +107,8 @@ module.exports = function routes(app) {
         req.flash(req.params.profile_name + ' has not entered the contest.');
         return res.redirect('/');
       }
+
+      console.log(entrant);
 
       return res.render('pages/congrats', {
         data: entrant
