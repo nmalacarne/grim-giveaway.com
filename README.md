@@ -1,5 +1,6 @@
 A website for random drawings to win a Steam copy of [Grim Dawn](http://grimdawn.com)
 
+## Installation
 Install Node Version Manager (NVM) from [here](https://github.com/creationix/nvm)
 
 Once you have installed NVM, install Node v0.12.4.
