@@ -86,6 +86,7 @@ module.exports = function routes(app) {
           }).save();
         })
         .then(function congratulateEntrant(entrant) {
+          console.log('new entrant: \n%s \n%s', entrant.steam_id, entrant.profile_name);
           return res.redirect('/congrats/' + entrant.profile_name);
         })
         .catch(function(err) {
@@ -107,8 +108,6 @@ module.exports = function routes(app) {
         req.flash(req.params.profile_name + ' has not entered the contest.');
         return res.redirect('/');
       }
-
-      console.log(entrant);
 
       return res.render('pages/congrats', {
         data: entrant
