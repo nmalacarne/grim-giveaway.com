@@ -27,6 +27,9 @@ module.exports = function setup(app) {
   // logging
   app.use(log(process.env.LOG_TYPE));
 
+  // for IP
+  app.enable('trust proxy');
+
   // serve favicon
   app.use(favicon(__dirname + '/../assets/favicon.ico'));
 

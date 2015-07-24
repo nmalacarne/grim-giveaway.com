@@ -7,6 +7,7 @@ var entrantSchema = new Schema({
   , profile_url   : { type: String, required: true }
   , icon_url      : { type: String, required: true }
   , winner        : { type: Boolean, default: false  }
+  , ip_address    : { type: String }
   , created_at    : { type: Date }
   , updated_at    : { type: Date }
 });

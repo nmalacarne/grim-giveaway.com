@@ -28,6 +28,7 @@ module.exports = function routes(app) {
   });
 
   app.get('/', function indexGet(req, res) {
+    console.log(req.ip);
     res.render('pages/home');
   });
 
@@ -62,7 +63,7 @@ module.exports = function routes(app) {
           if (typeof library.games !== 'undefined') {
             library.games.forEach(function(game) {
               if (game.appid == 219990) {
-                throw new Error(req.user.personaname + ' already owns Grim Dawn.');
+                //throw new Error(req.user.personaname + ' already owns Grim Dawn.');
               }
             });
           }
@@ -83,6 +84,7 @@ module.exports = function routes(app) {
             , profile_name  : req.user.personaname
             , profile_url   : req.user.profileurl
             , icon_url      : req.user.avatarfull
+            , ip_address    : req.ip
           }).save();
         })
         .then(function congratulateEntrant(entrant) {
