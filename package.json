@@ -28,11 +28,13 @@
     "mongo-sanitize": "^1.0.0",
     "mongoose": "^4.0.6",
     "morgan": "^1.5.3",
+    "nodemailer": "^1.4.0",
     "passport": "^0.2.2",
     "passport-steam": "^0.1.5",
     "robots.txt": "^1.1.0",
     "serve-favicon": "^2.3.0",
     "steam-webapi": "^0.6.5",
+    "stringify-object": "^2.2.0",
     "stylus": "^0.51.1"
   },
   "devDependencies": {

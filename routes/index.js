@@ -3,8 +3,10 @@ var Passport  = require('passport');
 var Strategy  = require('passport-steam').Strategy;
 var Steam     = require('steam-webapi');
 var Entrant   = require('../models/entrant');
+var Mailer    = require('nodemailer');
 
 var sanitize  = require('mongo-sanitize');
+var stringify = require('stringify-object');
 
 // TODO: move this elsewhere
 Passport.use(new Strategy({
@@ -16,6 +18,25 @@ Passport.use(new Strategy({
     return done(null, profile._json);
   }
 ));
+
+function sendMail(message) {
+  var transporter;
+
+  transporter = Mailer.createTransport({
+      service: 'MailGun'
+    , auth: {
+        user: process.env.MG_ACCOUNT
+      , pass: process.env.MG_PW
+      }
+  });
+
+  transporter.sendMail({
+      from    : 'Grim Giveaway'
+    , to      : 'nick@grim-giveaway.com'
+    , subject : 'Someone has entered the contest'
+    , text    : message
+  });
+}
 
 module.exports = function routes(app) {
   // sanitize request data
@@ -63,7 +84,7 @@ module.exports = function routes(app) {
           if (typeof library.games !== 'undefined') {
             library.games.forEach(function(game) {
               if (game.appid == 219990) {
-                throw new Error(req.user.personaname + ' already owns Grim Dawn.');
+                //throw new Error(req.user.personaname + ' already owns Grim Dawn.');
               }
             });
           }
@@ -88,7 +109,15 @@ module.exports = function routes(app) {
           }).save();
         })
         .then(function congratulateEntrant(entrant) {
-          console.log('new entrant: \n%s \n%s', entrant.steam_id, entrant.profile_name);
+          sendMail(
+            stringify({
+                steam_id      : entrant.steam_id
+              , profile_name  : entrant.profile_name
+              , profile_url   : entrant.profile_url
+              , icon_url      : entrant.icon_url
+              , ip_address    : entrant.ip_address
+            })
+          );
           return res.redirect('/congrats/' + entrant.profile_name);
         })
         .catch(function(err) {
