@@ -63,7 +63,7 @@ module.exports = function routes(app) {
           if (typeof library.games !== 'undefined') {
             library.games.forEach(function(game) {
               if (game.appid == 219990) {
-                //throw new Error(req.user.personaname + ' already owns Grim Dawn.');
+                throw new Error(req.user.personaname + ' already owns Grim Dawn.');
               }
             });
           }
