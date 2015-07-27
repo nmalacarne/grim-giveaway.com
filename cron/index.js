@@ -11,7 +11,7 @@ new CronJob('0 0 5 * * *', function() {
     if (err) {
       mail.send('Removal Error', stringify(err));
     } else {
-      mail.send(stringify('Entrant Removed', removed.result));
+      mail.send('Entrant Removed', stringify(removed.result));
     }
   });
 }, null, true, 'America/New_York');
