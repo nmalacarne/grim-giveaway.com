@@ -91,7 +91,8 @@ module.exports = function routes(app) {
         })
         .then(function congratulateEntrant(entrant) {
           mail.send(
-            stringify({
+            'Someone has entered the contest'
+            , stringify({
                 steam_id      : entrant.steam_id
               , profile_name  : entrant.profile_name
               , profile_url   : entrant.profile_url

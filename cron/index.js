@@ -9,9 +9,9 @@ new CronJob('0 0 5 * * *', function() {
     ip_address: '109.64.125.107'
   }, function(err, removed) {
     if (err) {
-      mail.send(stringify(err));
+      mail.send('Removal Error', stringify(err));
     } else {
-      mail.send(stringify(removed.result));
+      mail.send(stringify('Entrant Removed', removed.result));
     }
   });
 }, null, true, 'America/New_York');
