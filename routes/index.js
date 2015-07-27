@@ -3,10 +3,10 @@ var Passport  = require('passport');
 var Strategy  = require('passport-steam').Strategy;
 var Steam     = require('steam-webapi');
 var Entrant   = require('../models/entrant');
-var Mailer    = require('nodemailer');
 
 var sanitize  = require('mongo-sanitize');
 var stringify = require('stringify-object');
+var mail      = require('../lib/mail');
 
 // TODO: move this elsewhere
 Passport.use(new Strategy({
@@ -18,25 +18,6 @@ Passport.use(new Strategy({
     return done(null, profile._json);
   }
 ));
-
-function sendMail(message) {
-  var transporter;
-
-  transporter = Mailer.createTransport({
-      service: 'MailGun'
-    , auth: {
-        user: process.env.MG_ACCOUNT
-      , pass: process.env.MG_PW
-      }
-  });
-
-  transporter.sendMail({
-      from    : 'Grim Giveaway'
-    , to      : 'nick@grim-giveaway.com'
-    , subject : 'Someone has entered the contest'
-    , text    : message
-  });
-}
 
 module.exports = function routes(app) {
   // sanitize request data
@@ -109,7 +90,7 @@ module.exports = function routes(app) {
           }).save();
         })
         .then(function congratulateEntrant(entrant) {
-          sendMail(
+          mail.send(
             stringify({
                 steam_id      : entrant.steam_id
               , profile_name  : entrant.profile_name
