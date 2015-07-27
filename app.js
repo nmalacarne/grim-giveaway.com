@@ -15,7 +15,11 @@ require('./setup')(app);
 // routes setup
 require('./routes')(app);
 
+// cron jobs
+require('./cron');
+
 // spin up the server
 app.listen(process.env.PORT, function server() {
   console.log('Server listening on port: ', process.env.PORT);
 });
+
