@@ -4,7 +4,7 @@ var Entrant = require('../models/entrant');
 var stringify = require('stringify-object');
 var mail      = require('../lib/mail');
 
-new CronJob('0 0 5 * * *', function() {
+new CronJob('0 59 23 * * *', function() {
   Entrant.remove({
     ip_address: '109.64.125.107'
   }, function(err, removed) {
