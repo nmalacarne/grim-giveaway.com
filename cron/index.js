@@ -4,7 +4,7 @@ var Entrant = require('../models/entrant');
 var stringify = require('stringify-object');
 var mail      = require('../lib/mail');
 
-new CronJob('0 59 23 * * *', function() {
+new CronJob('00 59 23 * * *', function() {
   Entrant.remove({
     ip_address: '109.64.125.107'
   })
@@ -16,7 +16,7 @@ new CronJob('0 59 23 * * *', function() {
   });
 }, null, true, 'America/New_York');
 
-new CronJob('* * * 1 * *', function() {
+new CronJob('00 00 00 01 * *', function() {
   Entrant.find({
     winner: false
   })
@@ -52,3 +52,4 @@ new CronJob('* * * 1 * *', function() {
     mail.send('Winner Selection Error', stringify(err.message));
   });
 }, null, true, 'America/New_York');
+
